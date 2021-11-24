@@ -5,7 +5,7 @@ jobs:
   machine-executort-test:
     machine:
       image: ubuntu-2004:202111-01
-      steps:
+    steps:
         - run: lsb_release -d
         - run: docker -v
         - run: docker-compose -v
