@@ -17,11 +17,12 @@ jobs:
           name: "Check docker-compose Version"
           command: docker-compose -v
       - run:
-          name: "Install multiple versions of Python"
+          name: "Install Python"
           command: |
-            sudo add-apt-repository ppa:deadsnakes/ppa |
-            sudo apt-get update |
-            sudo apt-get install python3.10
+            sudo apt update |
+            sudo apt -y upgrade |
+            python3 -V |
+            sudo apt install -y python3-pip
       - run:
           name: "Python version"
           command: python --version
