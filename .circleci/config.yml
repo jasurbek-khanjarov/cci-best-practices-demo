@@ -9,4 +9,3 @@ jobs:
         - run: lsb_release -d
         - run: docker -v
         - run: docker-compose -v
-    
