@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   # Selecting right executor
-  build:
+  machine-executor:
     machine:
       image: ubuntu-2004:202111-01
     steps:
@@ -19,23 +19,35 @@ jobs:
       - run:
           name: "Install multiple versions of Python"
           command: |
-            sudo apt update && sudo apt upgrade -y |
-            sudo apt-get install build-essential checkinstall |
-            sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev |
-            cd /opt |
-            sudo wget https://www.python.org/ftp/python/3.9.2/Python-3.9.2.tgz |
-            sudo tar xzf Python-3.9.2.tgz |
-            cd Python-3.9.2 |
-            sudo ./configure --enable-optimizations |
-            sudo make altinstall |
-            cd /usr/local/bin/ |
-            ls |
-            update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 |
-            update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python3.9 2
+            sudo add-apt-repository ppa:deadsnakes/ppa |
+            sudo apt-get update |
+            sudo apt-get install python3.10
+      - run:
+          name: "Python version"
+          command: python --version
             
+  docker-executor:
+    docker:
+      image: cimg/python:3.10.0
+    steps:
+      - checkout
+      - run: 
+          name: "Check OS Version"
+          command: lsb_release -d
+      - run:
+          name: "Check Docker Version"
+          command: docker -v
+      - run: 
+          name: "Check docker-compose Version"
+          command: docker-compose -v
+      - run:
+          name: "Python version"
+          command: python --version
+      
 
 workflows:
   test-best-practices:
     jobs:
-      - build
+      - machine-executor
+      - docker-executor
       
