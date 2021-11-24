@@ -2,10 +2,11 @@ version: 2.1
 
 jobs:
   # Selecting right executor
-  machine-executort-test:
+  build:
     machine:
       image: ubuntu-2004:202111-01
     steps:
-        - run: lsb_release -d
-        - run: docker -v
-        - run: docker-compose -v
+      - checkout
+      - run: lsb_release -d
+      - run: docker -v
+      - run: docker-compose -v
