@@ -7,6 +7,23 @@ jobs:
       image: ubuntu-2004:202111-01
     steps:
       - checkout
-      - run: lsb_release -d
-      - run: docker -v
-      - run: docker-compose -v
+      - run: 
+          name: "Check OS Version"
+          command: lsb_release -d
+      - run:
+          name: "Check Docker Version"
+          command: docker -v
+      - run: 
+          name: "Check docker-compose Version"
+          command: docker-compose -v
+      - run:
+          name: "Install multiple versions of Golang"
+          command: |
+            go install golang.org/dl/go1.10.7@latest |
+            go1.10.7 download
+
+workflows:
+  test-best-practices:
+    jobs:
+      - build
+      
