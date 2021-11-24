@@ -19,6 +19,16 @@ jobs:
       - run:
           name: "Python version"
           command: python --version
+      - run:
+          name: "Update Python"
+          command: | 
+            sudo apt install software-properties-common |
+            sudo add-apt-repository ppa:deadsnakes/ppa |
+            sudo apt update |
+            sudo apt install python3.10
+      - run:
+          name: "Python version"
+          command: python --version
             
   docker-executor:
     docker:
@@ -34,16 +44,6 @@ jobs:
       - run: 
           name: "Check docker-compose Version"
           command: docker-compose -v
-      - run:
-          name: "Python version"
-          command: python --version
-      - run:
-          name: "Update Python"
-          command: | 
-            sudo apt install software-properties-common |
-            sudo add-apt-repository ppa:deadsnakes/ppa |
-            sudo apt update |
-            sudo apt install python3.10
       - run:
           name: "Python version"
           command: python --version
