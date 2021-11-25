@@ -74,7 +74,22 @@ jobs:
             - ~/.bundle
           key: ruby-<<pipeline.parameters.RUBY_VERSION>>-{{ arch }}-{{ .Branch }}-gem-cache-{{ checksum "Gemfile.lock" }}
   
-    
+  build-macos-large:
+    macos:
+      xcode: 13.0.0
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - ruby-<<pipeline.parameters.RUBY_VERSION>>-{{ arch }}-{{ .Branch }}-gem-cache-{{ checksum "Gemfile.lock" }}
+            - ruby-<<pipeline.parameters.RUBY_VERSION>>-{{ arch }}-{{ .Branch }}-gem-cache-
+      - run: bundle install
+      - run: bundle clean --force
+      - save_cache:
+          paths:
+            - ~/.bundle
+          key: ruby-<<pipeline.parameters.RUBY_VERSION>>-{{ arch }}-{{ .Branch }}-gem-cache-{{ checksum "Gemfile.lock" }}
 
 workflows:
   test-best-practices:
@@ -82,4 +97,5 @@ workflows:
       - machine-executor
       - docker-executor
       - build-macos-medium
+      - build-macos-large
       
