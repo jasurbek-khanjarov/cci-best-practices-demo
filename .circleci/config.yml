@@ -52,10 +52,30 @@ jobs:
       - run:
           name: "Python version"
           command: python --version
+          
+  build-macos-medium:
+    macos:
+      xcode: 13.0.0
+    resource_class: medium
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - ruby-<<pipeline.parameters.RUBY_VERSION>>-{{ arch }}-{{ .Branch }}-gem-cache-{{ checksum "Gemfile.lock" }}
+            - ruby-<<pipeline.parameters.RUBY_VERSION>>-{{ arch }}-{{ .Branch }}-gem-cache-
+      - run: bundle install
+      - run: bundle clean --force
+      - save_cache:
+          paths:
+            - ~/.bundle
+          key: ruby-<<pipeline.parameters.RUBY_VERSION>>-{{ arch }}-{{ .Branch }}-gem-cache-{{ checksum "Gemfile.lock" }}
+  
+    
 
 workflows:
   test-best-practices:
     jobs:
       - machine-executor
       - docker-executor
+      - build-macos-medium
       
