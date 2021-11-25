@@ -19,6 +19,7 @@ jobs:
       - run:
           name: "Python version"
           command: python --version
+      - run: docker ps
       - run:
           name: "Update Python"
           command: | 
@@ -44,6 +45,7 @@ jobs:
       - run: 
           name: "Check docker-compose Version"
           command: docker-compose -v
+      - run: docker ps
       - run:
           name: "Python version"
           command: python --version
