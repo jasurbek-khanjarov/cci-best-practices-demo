@@ -1,4 +1,8 @@
 version: 2.1
+parameters:
+  RUBY_VERSION:
+    type: string
+    default: v2
 
 jobs:
   # Selecting right executor
