@@ -27,7 +27,13 @@ jobs:
       - run:
           name: "Update Python"
           command: | 
-            sudo add-apt-repository ppa:deadsnakes/ppa && sudo apt-get update -y && sudo apt-get install python3.6 -y && sudo apt-get install python3.7 -y && sudo apt install python3-pip -y && sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1 && sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2
+            sudo add-apt-repository ppa:deadsnakes/ppa 
+            && sudo apt-get update -y 
+            && sudo apt-get install python3.6 -y 
+            && sudo apt-get install python3.7 -y 
+            && sudo apt install python3-pip -y 
+            && sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1 
+            && sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2
       - run:
           name: "Python version"
           command: python --version
