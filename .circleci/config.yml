@@ -32,8 +32,8 @@ jobs:
             sudo add-apt-repository ppa:deadsnakes/ppa 
             sudo apt install python3.9
       - run:
-          name: "Python 3.9 version"
-          command: python3.9 --version
+          name: "list python versions"
+          command: ls -ls /usr/bin/python*
             
   docker-executor:
     docker:
@@ -56,7 +56,9 @@ jobs:
       - run:
           name: "Python version"
           command: python --version
-          
+      - run:
+          name: "list python versions"
+          command: ls -ls /usr/bin/python*
   build-macos-medium:
     macos:
       xcode: 13.0.0
